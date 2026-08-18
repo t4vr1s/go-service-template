@@ -71,3 +71,15 @@ func TestNewRouterGreetEndpointUsesProvidedName(t *testing.T) {
 		t.Fatalf("expected named greeting, got %q", response["message"])
 	}
 }
+
+func TestNewRouterReturnsNotFoundForUnknownPath(t *testing.T) {
+	router := NewRouter(usecase.HealthCheck{}, usecase.Greeter{})
+	request := httptest.NewRequest(http.MethodGet, "/unknown", nil)
+	recorder := httptest.NewRecorder()
+
+	router.ServeHTTP(recorder, request)
+
+	if recorder.Code != http.StatusNotFound {
+		t.Fatalf("expected status %d, got %d", http.StatusNotFound, recorder.Code)
+	}
+}
