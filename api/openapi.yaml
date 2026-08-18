@@ -1,0 +1,30 @@
+openapi: 3.0.3
+info:
+  title: go-service-template
+  version: 0.1.0
+servers:
+  - url: http://localhost:8080
+paths:
+  /:
+    get:
+      summary: Service metadata
+      responses:
+        '200':
+          description: Service information
+  /health:
+    get:
+      summary: Health check endpoint
+      responses:
+        '200':
+          description: Service is healthy
+  /greet:
+    get:
+      summary: Greeting example endpoint
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Greeting response
